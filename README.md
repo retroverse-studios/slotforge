@@ -8,9 +8,9 @@ same thing in the editor, the build sheet and the race app.
 
 A RetroVerse Studios project: https://retroverse.studio
 
-- Landing: https://michael-borck.github.io/slotforge/
-- Designer: https://michael-borck.github.io/slotforge/studio/
-- Race: https://michael-borck.github.io/slotforge/race/
+- Landing: https://slotforge.retroverse.studio/
+- Designer: https://slotforge.retroverse.studio/studio/
+- Race: https://slotforge.retroverse.studio/race/
 
 ## Status
 

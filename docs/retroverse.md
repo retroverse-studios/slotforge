@@ -1,5 +1,7 @@
 # RetroVerse Studios integration
 
+**Status: live at https://slotforge.retroverse.studio**
+
 SlotForge is a RetroVerse Studios project. The code stays in its own repo, the
 same way Virtual Lanes, Karaoke Stage, NUMERON and ASTRON do. Do not fold it into
 the `retroverse.studio` site repo: that repo is one HTML document with four CSS
@@ -48,9 +50,9 @@ the site would be unreachable until DNS is ready.
    `CUSTOM_DOMAIN=slotforge.retroverse.studio`.
 3. Re-run the **Deploy Pages** workflow. It writes `_site/CNAME`.
 4. In **Settings → Pages**, confirm the custom domain and enable HTTPS.
-5. Update the canonical, OG and Twitter URLs in `apps/site/index.html` from
-   `https://michael-borck.github.io/slotforge/` to
-   `https://slotforge.retroverse.studio/`.
+5. The canonical, OG and Twitter URLs already point at
+   `https://slotforge.retroverse.studio/`. Keep them in sync if the domain
+   changes.
 
 ## Move the repo under the org (optional)
 
