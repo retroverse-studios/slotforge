@@ -81,6 +81,28 @@ Sources: `ir`, `camera`, `manual`. The race app owns race state, penalties,
 points and the leaderboard. The vision service is a sensor, not an authority.
 That keeps a camera failure from stopping a race.
 
+## CI
+
+One workflow, path-filtered. A `changes` job runs `dorny/paths-filter` and the
+core, studio, race and vision jobs check its outputs.
+
+| Changed paths | Jobs that run |
+|---|---|
+| `packages/core`, `content` | core |
+| `apps/studio`, `packages/core` | studio |
+| `apps/race` | race |
+| `services/vision` | vision |
+| root `package.json`, lockfile, `tsconfig.base.json` | core, studio, race |
+| `.github/workflows/ci.yml` | all |
+
+A final `ci` job aggregates the results. Require that one check in branch
+protection instead of chasing four job names. Skipped jobs do not fail the
+aggregate.
+
+Deploy is a separate workflow, filtered to Studio and core paths. The Python job
+installs `.[dev]` when `services/vision/pyproject.toml` appears, runs ruff and
+pytest if configured, and falls back to `compileall` until then.
+
 ## Next architectural steps
 
 - Move the print and SVG renderer from `apps/studio` into `packages/fab` so the

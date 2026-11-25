@@ -8,6 +8,7 @@ on:
       - "packages/core/**"
       - "package.json"
       - "package-lock.json"
+      - "tsconfig.base.json"
       - ".github/workflows/deploy-studio.yml"
   workflow_dispatch:
 
