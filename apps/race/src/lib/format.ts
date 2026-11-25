@@ -58,8 +58,13 @@ export function generateSchedule(
       (_, index) => driverIds[(index + round) % driverIds.length]!,
     );
     const heatCount = Math.ceil(rotated.length / lanes);
+    const baseSize = Math.floor(rotated.length / heatCount);
+    const extras = rotated.length % heatCount;
+    let cursor = 0;
     for (let heat = 0; heat < heatCount; heat += 1) {
-      const chunk = rotated.slice(heat * lanes, (heat + 1) * lanes);
+      const size = baseSize + (heat < extras ? 1 : 0);
+      const chunk = rotated.slice(cursor, cursor + size);
+      cursor += size;
       heats.push({
         id: `r${round + 1}-h${heat + 1}`,
         round: round + 1,

@@ -39,7 +39,11 @@ function pointsAttr(points: Vec2[]): string {
   return points.map((point) => `${num(point.x)},${num(point.y)}`).join(" ");
 }
 
-export function exportSvg(built: BuiltTrack): string {
+export function exportSvg(built: BuiltTrack, theme: "dark" | "light" = "dark"): string {
+  const colours =
+    theme === "dark"
+      ? { surface: "#262a31", stroke: "#4b5563", lane: "#9ca3af", start: "#f87171" }
+      : { surface: "#e5e7eb", stroke: "#374151", lane: "#6b7280", start: "#dc2626" };
   const pad = 1;
   const minX = built.bounds.minX - pad;
   const maxY = built.bounds.maxY + pad;
@@ -70,9 +74,9 @@ export function exportSvg(built: BuiltTrack): string {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${num(width)}in" height="${num(height)}in" viewBox="0 0 ${num(width)} ${num(height)}">
   <style>
-    .surface { fill: #262a31; stroke: #4b5563; stroke-width: 0.03; }
-    .lane { fill: none; stroke: #9ca3af; stroke-width: 0.015; stroke-dasharray: 0.18 0.12; }
-    .start { stroke: #f87171; stroke-width: 0.12; stroke-dasharray: 0.15 0.15; }
+    .surface { fill: ${colours.surface}; stroke: ${colours.stroke}; stroke-width: 0.03; }
+    .lane { fill: none; stroke: ${colours.lane}; stroke-width: 0.015; stroke-dasharray: 0.18 0.12; }
+    .start { stroke: ${colours.start}; stroke-width: 0.12; stroke-dasharray: 0.15 0.15; }
   </style>
   ${surfaces}
   ${laneLines}
@@ -199,7 +203,7 @@ export function buildPrintDocument(built: BuiltTrack, paper: Paper = "a4"): stri
   h2 { font-size: 13px; margin: 18px 0 6px; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5563; }
   p { font-size: 11px; line-height: 1.5; margin: 0 0 6px; }
   .meta { color: #6b7280; font-size: 10px; }
-  .preview { margin: 10px 0; border: 1px solid #d1d5db; background: #0f1115; }
+  .preview { margin: 10px 0; border: 1px solid #d1d5db; background: #f3f4f6; }
   .preview svg { display: block; width: 100%; height: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 10px; }
   th, td { text-align: left; padding: 3px 4px; border-bottom: 1px solid #e5e7eb; }
@@ -218,7 +222,7 @@ export function buildPrintDocument(built: BuiltTrack, paper: Paper = "a4"): stri
   <h1>${escapeHtml(built.doc.name)}</h1>
   <p class="meta">SlotForge build sheet · ${built.doc.laneCount} lanes · ${built.totalPieces} pieces · ${built.bounds.width.toFixed(1)} × ${built.bounds.height.toFixed(1)} in · ${spec.name}</p>
   <div class="note"><strong>Print at 100%.</strong> Turn off "fit to page" and browser headers/footers. Check the 1 inch test square with a ruler before cutting. Sheets are tiled with registration marks.</div>
-  <div class="preview">${exportSvg(built)}</div>
+  <div class="preview">${exportSvg(built, "light")}</div>
   <div class="two">
     <div>
       <h2>Bill of materials</h2>

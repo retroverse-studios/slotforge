@@ -40,6 +40,11 @@ describe("schedule", () => {
     }
   });
 
+  it("balances heat sizes instead of filling one heat first", () => {
+    const heats = generateSchedule(["a", "b", "c", "d", "e", "f"], 4, 1);
+    expect(heats.map((heat) => heat.assignments.length)).toEqual([3, 3]);
+  });
+
   it("does not duplicate a driver inside a heat", () => {
     const heats = generateSchedule(drivers, 4, 8);
     for (const heat of heats) {

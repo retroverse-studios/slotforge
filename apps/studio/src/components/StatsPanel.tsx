@@ -101,9 +101,10 @@ export function StatsPanel({
             </select>
           </div>
           <div className="row two-inputs">
-            <label htmlFor="table-width">Width</label>
+            <label htmlFor="table-width">Size</label>
             <input
               id="table-width"
+              aria-label="Table width in inches"
               type="number"
               min={6}
               step={1}
@@ -114,8 +115,9 @@ export function StatsPanel({
                 if (event.key === "Enter") commitTable(width, height);
               }}
             />
+            <span className="times">×</span>
             <input
-              aria-label="Table height"
+              aria-label="Table height in inches"
               type="number"
               min={6}
               step={1}

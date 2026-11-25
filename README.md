@@ -6,6 +6,8 @@ track system, with a cross-platform web UI that also installs as a PWA.
 This is a monorepo with one shared geometry engine, so a track file means the
 same thing in the editor, the build sheet and the race app.
 
+Live designer: https://michael-borck.github.io/slotforge/
+
 ## Status
 
 | Area | State | What works |
