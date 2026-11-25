@@ -20,6 +20,7 @@ jobs:
       core: ${{ steps.filter.outputs.core }}
       studio: ${{ steps.filter.outputs.studio }}
       race: ${{ steps.filter.outputs.race }}
+      site: ${{ steps.filter.outputs.site }}
       vision: ${{ steps.filter.outputs.vision }}
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +47,11 @@ jobs:
               - 'package.json'
               - 'package-lock.json'
               - 'tsconfig.base.json'
+              - '.github/workflows/ci.yml'
+            site:
+              - 'apps/site/**'
+              - 'package.json'
+              - 'package-lock.json'
               - '.github/workflows/ci.yml'
             vision:
               - 'services/vision/**'
@@ -93,6 +99,19 @@ jobs:
       - run: npm run test -w @slotforge/race
       - run: npm run build -w @slotforge/race
 
+  site:
+    needs: changes
+    if: needs.changes.outputs.site == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build -w @slotforge/site
+
   vision:
     needs: changes
     if: needs.changes.outputs.vision == 'true'
@@ -132,7 +151,7 @@ jobs:
 
   ci:
     if: always()
-    needs: [changes, core, studio, race, vision]
+    needs: [changes, core, studio, race, site, vision]
     runs-on: ubuntu-latest
     steps:
       - name: Fail when a selected job failed

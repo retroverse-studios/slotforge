@@ -7,7 +7,7 @@ const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
 const onActions = process.env.GITHUB_ACTIONS === "true";
 
 export default defineConfig({
-  base: onActions ? "/slotforge/" : "/",
+  base: onActions ? "/slotforge/studio/" : "/",
   plugins: [
     react(),
     VitePWA({

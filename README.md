@@ -6,12 +6,17 @@ track system, with a cross-platform web UI that also installs as a PWA.
 This is a monorepo with one shared geometry engine, so a track file means the
 same thing in the editor, the build sheet and the race app.
 
-Live designer: https://michael-borck.github.io/slotforge/
+A RetroVerse Studios project: https://retroverse.studio
+
+- Landing: https://michael-borck.github.io/slotforge/
+- Designer: https://michael-borck.github.io/slotforge/studio/
+- Race: https://michael-borck.github.io/slotforge/race/
 
 ## Status
 
 | Area | State | What works |
 |---|---|---|
+| `apps/site` | working | Landing page, OG image, live links, RetroVerse branding |
 | `packages/core` | working | Schema, AFX piece library, chained geometry, closure, lane lengths, BOM, table fit, tests |
 | `apps/studio` | working | 2D snap-by-construction editor, 3D preview with orbit and lap cam, 1:1 tiled print sheets, SVG/JSON export, PWA |
 | `apps/race` | working MVP | Heat schedule with lane rotation, points, standings, local save. Manual results; no timing hardware yet |
@@ -25,8 +30,9 @@ Live designer: https://michael-borck.github.io/slotforge/
 npm install
 npm run dev          # Studio at http://localhost:5173
 npm run dev:race     # Race at http://localhost:5174
+npm run dev:site     # Landing at http://localhost:5175
 npm test             # geometry, closure, BOM and race schedule tests
-npm run build        # production builds for both apps
+npm run build        # production builds for every app
 ```
 
 Node 20 or newer. No database, no account, no cloud.
@@ -50,6 +56,7 @@ change. One repo keeps it honest.
 ```
 slotforge/
   apps/
+    site/            landing page, static Vite
     studio/          React + Vite + SVG + three.js
     race/            React + Vite, schedule and points engine
     fab/             print/CNC export service (scaffold)
@@ -64,6 +71,24 @@ slotforge/
     electronics/     IR beam and timing hardware notes
   docs/              architecture, measurement worksheet, roadmap
 ```
+
+## Deployment
+
+GitHub Pages serves one artifact with three entry points:
+
+| Path | What |
+|---|---|
+| `/` | landing page |
+| `/studio/` | the designer PWA |
+| `/race/` | the race app |
+
+The deploy workflow builds all three and assembles them. The old `/slotforge/`
+designer URL now serves the landing; the designer moved to `/studio/`.
+
+Do not buy a new domain. The studio pattern is a product subdomain, so the target
+is `https://slotforge.retroverse.studio`. DNS, the Pages custom domain, repo
+transfer and the RetroVerse Tools card are documented in
+[docs/retroverse.md](docs/retroverse.md).
 
 ## The track file
 

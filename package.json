@@ -11,10 +11,11 @@
   "scripts": {
     "dev": "npm run dev -w @slotforge/studio",
     "dev:race": "npm run dev -w @slotforge/race",
-    "build": "npm run build -w @slotforge/core && npm run build -w @slotforge/studio && npm run build -w @slotforge/race",
+    "build": "npm run build -w @slotforge/core && npm run build -w @slotforge/site && npm run build -w @slotforge/studio && npm run build -w @slotforge/race",
     "test": "npm run test -w @slotforge/core && npm run test -w @slotforge/race",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules apps/*/dist packages/*/dist"
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules apps/*/dist packages/*/dist",
+    "dev:site": "npm run dev -w @slotforge/site"
   },
   "engines": {
     "node": ">=20"

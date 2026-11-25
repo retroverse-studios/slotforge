@@ -1,15 +1,17 @@
-name: Deploy Studio
+name: Deploy Pages
 
 on:
   push:
     branches: [main]
     paths:
+      - "apps/site/**"
       - "apps/studio/**"
+      - "apps/race/**"
       - "packages/core/**"
       - "package.json"
       - "package-lock.json"
       - "tsconfig.base.json"
-      - ".github/workflows/deploy-studio.yml"
+      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -31,11 +33,26 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run build -w @slotforge/site
       - run: npm run build -w @slotforge/studio
+      - run: npm run build -w @slotforge/race
+      - name: Assemble the Pages artifact
+        env:
+          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+        run: |
+          rm -rf _site
+          mkdir -p _site/studio _site/race
+          cp -R apps/site/dist/. _site/
+          cp -R apps/studio/dist/. _site/studio/
+          cp -R apps/race/dist/. _site/race/
+          if [ -n "$CUSTOM_DOMAIN" ]; then
+            printf '%s\n' "$CUSTOM_DOMAIN" > _site/CNAME
+            echo "Custom domain: $CUSTOM_DOMAIN"
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/studio/dist
+          path: _site
 
   deploy:
     needs: build

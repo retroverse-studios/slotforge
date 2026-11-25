@@ -91,6 +91,7 @@ core, studio, race and vision jobs check its outputs.
 | `packages/core`, `content` | core |
 | `apps/studio`, `packages/core` | studio |
 | `apps/race` | race |
+| `apps/site` | site |
 | `services/vision` | vision |
 | root `package.json`, lockfile, `tsconfig.base.json` | core, studio, race |
 | `.github/workflows/ci.yml` | all |
@@ -99,14 +100,16 @@ A final `ci` job aggregates the results. Require that one check in branch
 protection instead of chasing four job names. Skipped jobs do not fail the
 aggregate.
 
-Deploy is a separate workflow, filtered to Studio and core paths. The Python job
-installs `.[dev]` when `services/vision/pyproject.toml` appears, runs ruff and
-pytest if configured, and falls back to `compileall` until then.
+Deploy is a separate workflow, filtered to site, Studio, Race and core paths. It
+builds all three apps and assembles one Pages artifact: `/` for the landing,
+`/studio/` for the designer and `/race/` for race night. The Python job installs
+`.[dev]` when `services/vision/pyproject.toml` appears, runs ruff and pytest if
+configured, and falls back to `compileall` until then.
 
 ## Next architectural steps
 
 - Move the print and SVG renderer from `apps/studio` into `packages/fab` so the
   CLI and the editor share one implementation.
-- Split the 3D view into a lazy chunk. The three.js bundle is about 1 MB.
+- Publish `@slotforge/core` if an outside project needs the geometry engine.
 - Add a `packages/timing` contract package shared by race and vision.
 - Add a small local server for race night: SQLite, SSE, QR join.
