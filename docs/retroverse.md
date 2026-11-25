@@ -1,6 +1,6 @@
 # RetroVerse Studios integration
 
-**Status: live at https://slotforge.retroverse.studio**
+**Status: live at https://slotforge.retroverse.studio · repo under retroverse-studios**
 
 SlotForge is a RetroVerse Studios project. The code stays in its own repo, the
 same way Virtual Lanes, Karaoke Stage, NUMERON and ASTRON do. Do not fold it into
@@ -21,56 +21,47 @@ support and billing.
 
 ### DNS
 
-The other product subdomains point at the org Pages host:
+All product subdomains point at the org Pages host:
 
 ```text
 virtuallanes.retroverse.studio  CNAME  retroverse-studios.github.io
 ```
 
-For the current repo (before any transfer):
+SlotForge follows the same pattern:
 
 ```text
-slotforge  CNAME  michael-borck.github.io
+slotforge.retroverse.studio  CNAME  retroverse-studios.github.io
 ```
 
-If the repo moves to the `retroverse-studios` org, change the target to:
+The record is in Cloudflare, DNS-only. Keep it DNS-only until GitHub has issued
+or renewed the certificate. If you enable the orange cloud later, set SSL/TLS to
+Full (strict).
 
-```text
-slotforge  CNAME  retroverse-studios.github.io
-```
+### Current settings
 
-Do not add the CNAME file or the Pages custom domain until the DNS record
-resolves. A CNAME in the artifact makes Pages serve only the custom domain, so
-the site would be unreachable until DNS is ready.
+- Repo: https://github.com/retroverse-studios/slotforge
+- Actions variable: `CUSTOM_DOMAIN=slotforge.retroverse.studio`
+- Pages custom domain: `slotforge.retroverse.studio`
+- HTTPS: enforced, certificate approved
+- Deploy: writes `_site/CNAME` on every run
 
-### Turn it on
+If the domain changes, update the canonical, OG and Twitter URLs in
+`apps/site/index.html`, and the `CUSTOM_DOMAIN` variable.
 
-1. Add the DNS CNAME at the registrar or DNS host.
-2. In the GitHub repo, set an Actions variable:
-   `CUSTOM_DOMAIN=slotforge.retroverse.studio`.
-3. Re-run the **Deploy Pages** workflow. It writes `_site/CNAME`.
-4. In **Settings → Pages**, confirm the custom domain and enable HTTPS.
-5. The canonical, OG and Twitter URLs already point at
-   `https://slotforge.retroverse.studio/`. Keep them in sync if the domain
-   changes.
+## Repo transfer
 
-## Move the repo under the org (optional)
+Done. The repo moved from `michael-borck/slotforge` to
+`retroverse-studios/slotforge` on 25 November 2026. The old GitHub URLs redirect.
 
-All product repos live under `retroverse-studios`. To match:
+What changed:
 
-```bash
-gh repo transfer michael-borck/slotforge retroverse-studios
-git remote set-url origin git@github.com:retroverse-studios/slotforge.git
-```
+- local remote: `git@github.com:retroverse-studios/slotforge.git`
+- DNS target: `michael-borck.github.io` to `retroverse-studios.github.io`
+- Actions variable and Pages custom domain carried over
+- GitHub links in `apps/site/index.html` updated to the org
 
-Then:
-
-- change the DNS CNAME target to `retroverse-studios.github.io`;
-- update the GitHub links in `apps/site/index.html`, `README.md` and `docs/`;
-- re-run the deploy and re-check Pages.
-
-The custom domain keeps the public URL stable through the transfer. Do the DNS
-work first if you want zero downtime.
+The custom domain kept the public URL stable. If you ever move it again, add the
+new DNS target first, then transfer, then re-check Pages.
 
 ## Add it to the studio site
 
@@ -93,8 +84,8 @@ In `retroverse.studio/index.html`, add this card after Virtual Lanes in the
 </article>
 ```
 
-Do this after the subdomain resolves, otherwise the link is broken on the live
-studio site.
+The subdomain is live, so the card can be added now. It is the last optional
+step to list SlotForge on the studio site.
 
 ## Brand rules
 
