@@ -4,8 +4,10 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
+const onActions = process.env.GITHUB_ACTIONS === "true";
 
 export default defineConfig({
+  base: onActions ? "/slotforge/" : "/",
   plugins: [
     react(),
     VitePWA({
@@ -17,9 +19,11 @@ export default defineConfig({
         theme_color: "#0f1115",
         background_color: "#0f1115",
         display: "standalone",
+        start_url: ".",
+        scope: ".",
         icons: [
           {
-            src: "/icon.svg",
+            src: "icon.svg",
             sizes: "any",
             type: "image/svg+xml",
             purpose: "any",

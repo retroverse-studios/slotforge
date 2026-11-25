@@ -82,7 +82,11 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <img src="/icon.svg" alt="" className="brand-mark" />
+          <img
+            src={`${import.meta.env.BASE_URL}icon.svg`}
+            alt=""
+            className="brand-mark"
+          />
           <div>
             <strong>SlotForge</strong>
             <span>Studio</span>
