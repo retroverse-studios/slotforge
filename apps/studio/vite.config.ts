@@ -4,10 +4,9 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
-const onActions = process.env.GITHUB_ACTIONS === "true";
 
-export default defineConfig({
-  base: onActions ? "/slotforge/studio/" : "/",
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/studio/" : "/",
   plugins: [
     react(),
     VitePWA({
@@ -47,4 +46,4 @@ export default defineConfig({
   server: {
     fs: { allow: [repoRoot] },
   },
-});
+}));
