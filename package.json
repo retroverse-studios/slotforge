@@ -1,0 +1,22 @@
+{
+  "name": "slotforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design, validate, print and race HO slot car tracks.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @slotforge/studio",
+    "dev:race": "npm run dev -w @slotforge/race",
+    "build": "npm run build -w @slotforge/core && npm run build -w @slotforge/studio && npm run build -w @slotforge/race",
+    "test": "npm run test -w @slotforge/core && npm run test -w @slotforge/race",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules apps/*/dist packages/*/dist"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

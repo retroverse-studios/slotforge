@@ -1,0 +1,23 @@
+{
+  "schema": "slotforge/track@1",
+  "name": "Door oval",
+  "units": "in",
+  "laneCount": 4,
+  "laneOffsets": [2.25, 0.75, -0.75, -2.25],
+  "table": {
+    "width": 36,
+    "height": 80
+  },
+  "pieces": [
+    { "id": "s1", "pieceId": "s6" },
+    { "id": "c1", "pieceId": "c9-45L" },
+    { "id": "c2", "pieceId": "c9-45L" },
+    { "id": "c3", "pieceId": "c9-45L" },
+    { "id": "c4", "pieceId": "c9-45L" },
+    { "id": "s2", "pieceId": "s6" },
+    { "id": "c5", "pieceId": "c9-45L" },
+    { "id": "c6", "pieceId": "c9-45L" },
+    { "id": "c7", "pieceId": "c9-45L" },
+    { "id": "c8", "pieceId": "c9-45L" }
+  ]
+}
