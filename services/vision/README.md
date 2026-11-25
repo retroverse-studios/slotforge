@@ -59,6 +59,13 @@ frame number so a bad detection can be reviewed.
 - MediaMTX or go2rtc for WebRTC if phones need the stream
 - No cloud. Race night should work with the internet unplugged.
 
+## CI contract
+
+When code lands here, add a `pyproject.toml` with a `dev` extra containing
+`ruff` and `pytest`. The CI job installs `.[dev]`, runs `ruff check .` and
+`pytest -q` when they are available, and falls back to `compileall` until then.
+Keep tests under `services/vision/tests`.
+
 ## Privacy
 
 A camera pointed at a table in your home is still a camera. Keep the stream on
